@@ -24,7 +24,6 @@ class welcomeButton extends StatelessWidget{
     );
   }
 }
-
 class selectButton extends StatelessWidget{
   selectButton({@required this.session});
   Function session;
@@ -45,6 +44,31 @@ class selectButton extends StatelessWidget{
       ],
       buttonHeight: 80.0,
       buttonMinWidth: 250.0,
+      alignment: MainAxisAlignment.center,
+    );
+  }
+}
+class gameButton extends StatelessWidget{
+  gameButton({@required this.session,this.high,this.wide,this.myText});
+  Function session;
+  double high;
+  double wide;
+  String myText;
+  @override
+  Widget build(BuildContext context) {
+    return ButtonBar(
+      children: <Widget>[
+        FlatButton(
+          child: Text(myText,style: TextStyle(fontSize: 60.0,fontFamily: 'dora')),
+          color: Colors.blue,
+          textColor: Colors.redAccent,
+          padding: EdgeInsets.all(10.0),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+          onPressed: session,
+        )
+      ],
+      buttonHeight: high,
+      buttonMinWidth: wide,
       alignment: MainAxisAlignment.center,
     );
   }
