@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tictactoe/components/myButton.dart';
 import 'package:tictactoe/logic/routing.dart';
+import 'package:tictactoe/components/game_structure.dart';
 class GamePage extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
@@ -47,14 +48,12 @@ class GamePageState extends State<GamePage>{
             ),
             Container(
               height: h/2,
-              child: Column(
-                children: <Widget>[
-                  Text(w.toString(),style: TextStyle(color: Colors.red),),
-                  Text(h.toString(),style: TextStyle(color: Colors.blue),),
-                  Text(MediaQuery.of(context).devicePixelRatio.toString(),style: TextStyle(color: Colors.black),),
-                  Text(realw.toString(),style: TextStyle(color: Colors.red),),
-                  Text(realh.toString(),style: TextStyle(color: Colors.blue),),
-                ],
+              child: GameStructure(),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("public/pic/testBG1.jpg"),
+                  fit: BoxFit.cover,
+                )
               ),
             ),
             Container(
