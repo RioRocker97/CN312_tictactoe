@@ -1,8 +1,8 @@
 import 'dart:io';
 
 class TicTacToe {
-  var game ;
-  var slot ;
+  List game ;
+  List slot ;
   int side1Win ;
   int side2Win ;
   var x_possible ;
@@ -29,6 +29,7 @@ class TicTacToe {
   void calculatePoint(int x,int y, int id){
     var posx = x-1;
     var posy = y-1;
+    game[posx][posy] += id;
     ////////////// start get score /////////////
     if(slot[posx][posy] == 0){
       x_possible[posx] += id;
@@ -130,39 +131,11 @@ class TicTacToe {
     if(all_full == 9){
       print("Draw!");
       resetGame();
-      return false;
+      return true;
     }
     else{
       return false;
     } 
-  }
-  void side1play(int x,int y){
-    if(x > 3 || y > 3 || x < 0 || y < 0){
-      print("Wrong slot. Try again.");
-    }
-    else if(game[x-1][y-1] == 2){
-      print("Side2 Already play this slot.");
-    }
-    else if(game[x-1][y-1] == 1){
-      print("You Already play this slot.");
-    }
-    else{
-      game[x-1][y-1] = 1;
-    }
-  }
-  void side2play(int x,int y){
-    if(x > 3 || y > 3 || x < 0 || y < 0){
-      print("Wrong slot. Try again.");
-    }
-    else if(game[x-1][y-1] == 2){
-      print("You Already play this slot.");
-    }
-    else if(game[x-1][y-1] == 1){
-      print("Side1 Already play this slot.");
-    }
-    else{
-      game[x-1][y-1] = 2;
-    }
   }
   void resetGame(){
     for(var i = 0;i<3;i++){
@@ -197,5 +170,8 @@ class TicTacToe {
   }
   int getSide2Win(){
     return this.side2Win;
+  }
+  List getSideSlot(){
+    return this.game;
   }
 }

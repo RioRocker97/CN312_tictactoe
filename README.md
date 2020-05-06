@@ -11,5 +11,6 @@ designing simple graphic for game :heavy_check_mark:
 
 experimenting with Gesture Event trigger :heavy_check_mark:
 
+Finished !!! :heavy_check_mark: :heavy_check_mark: :heavy_check_mark:
 
 !! Always push git this to new_master  !!

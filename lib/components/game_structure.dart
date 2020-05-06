@@ -51,10 +51,9 @@ import 'package:tictactoe/logic/game_logic.dart';
 */
 
 class GameSlot extends StatelessWidget{
-  GameSlot({this.onTapE,this.c,this.id});
+  GameSlot({this.onTapE,this.id});
   Function onTapE;
   int id;
-  bool c;
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -72,7 +71,7 @@ class GameSlot extends StatelessWidget{
             height: 100.0,
             //color: c ? Colors.blue : Colors.red,
             child: Center(
-              child: c ? null : (id==1 ? Image(image: AssetImage('public/pic/X_blue.png')) : Image(image: AssetImage('public/pic/O_red.png'))) ,
+              child: id==0 ? null : (id==1 ? Image(image: AssetImage('public/pic/X_blue.png')) : Image(image: AssetImage('public/pic/O_red.png'))) ,
             )
           ),
         ),

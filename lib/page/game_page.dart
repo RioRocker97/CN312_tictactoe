@@ -1,3 +1,4 @@
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,16 +16,12 @@ class GamePage extends StatefulWidget{
 }
 class GamePageState extends State<GamePage>{
   TicTacToe mainGame = new TicTacToe();
-  bool mycolor = true;
-  var toggle = [
-    [true,true,true],
-    [true,true,true],
-    [true,true,true]
-  ];
-  var slot = [
-    [1,1,1],
-    [1,1,1],
-    [1,1,1]
+  bool playerSide = true;
+  bool gameSet = false;
+  List playerSlot =[
+    [0,0,0],
+    [0,0,0],
+    [0,0,0],
   ];
 
   @override
@@ -32,23 +29,26 @@ class GamePageState extends State<GamePage>{
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     //debugPaintSizeEnabled = true;
+    ///// Game Logic /////
     void playSlot(int x,int y){
-      var posx = x-1;
-      var posy = y-1;
-      mycolor = mycolor ? false : true;
-      toggle[posx][posy] = toggle[posx][posy] ? false : true;
-      if(mycolor){
-        slot[posx][posy] = 2;
+      int side = playerSide ? 1 : 2;
+      if(playerSlot[x-1][y-1] == 0){
+        mainGame.calculatePoint(x,y,side);
       }
-      else{slot[posx][posy] = 1;}
-      print(mycolor);
+      else{print("Someone is already play this slot . Try again next turn !");}
+      gameSet = mainGame.getWinner();
+      playerSlot = mainGame.getSideSlot();
+      print(side==1 ? "Red is playing..." : "Blue is playing..");
+      if(gameSet == true){print("Game Set !!");}
+      else{playerSide = playerSide ? false : true;}
     }
+    ///// Game Logic /////
     return Scaffold(
       body: Center(
         child: Column(
           children: <Widget>[
             //////////////////////////Score Board ////////////////////////////////////////
-            GameScore(side1Score: mainGame.getSide1Win(),side2Score: mainGame.getSide2Win(),turn: mycolor,),
+            GameScore(side1Score: mainGame.getSide1Win(),side2Score: mainGame.getSide2Win(),turn: playerSide,),
             //////////////////////////Score Board ////////////////////////////////////////
 
             //////////////////////////Game Structure ////////////////////////////////////////
@@ -60,27 +60,27 @@ class GamePageState extends State<GamePage>{
                     Expanded(
                       child: Row(
                         children: <Widget>[
-                          GameSlot(onTapE:(){setState(() {playSlot(1,1);});},c: toggle[0][0],id: slot[0][0]),
-                          GameSlot(onTapE:(){setState(() {playSlot(1,2);});},c: toggle[0][1],id: slot[0][1]),
-                          GameSlot(onTapE:(){setState(() {playSlot(1,3);});},c: toggle[0][2],id: slot[0][2]),
+                          GameSlot(onTapE:(){setState(() {playSlot(1,1);});},id: playerSlot[0][0]),
+                          GameSlot(onTapE:(){setState(() {playSlot(1,2);});},id: playerSlot[0][1]),
+                          GameSlot(onTapE:(){setState(() {playSlot(1,3);});},id: playerSlot[0][2]),
                         ],
                       ),
                     ),
                     Expanded(
                       child: Row(
                         children: <Widget>[
-                          GameSlot(onTapE:(){setState(() {playSlot(2,1);});},c: toggle[1][0],id: slot[1][0]),
-                          GameSlot(onTapE:(){setState(() {playSlot(2,2);});},c: toggle[1][1],id: slot[1][1]),
-                          GameSlot(onTapE:(){setState(() {playSlot(2,3);});},c: toggle[1][2],id: slot[1][2]),
+                          GameSlot(onTapE:(){setState(() {playSlot(2,1);});},id: playerSlot[1][0]),
+                          GameSlot(onTapE:(){setState(() {playSlot(2,2);});},id: playerSlot[1][1]),
+                          GameSlot(onTapE:(){setState(() {playSlot(2,3);});},id: playerSlot[1][2]),
                         ],
                       ),
                     ),
                     Expanded(
                       child: Row(
                         children: <Widget>[
-                          GameSlot(onTapE:(){setState(() {playSlot(3,1);});},c: toggle[2][0],id: slot[2][0]),
-                          GameSlot(onTapE:(){setState(() {playSlot(3,2);});},c: toggle[2][1],id: slot[2][1]),
-                          GameSlot(onTapE:(){setState(() {playSlot(3,3);});},c: toggle[2][2],id: slot[2][2]),
+                          GameSlot(onTapE:(){setState(() {playSlot(3,1);});},id: playerSlot[2][0]),
+                          GameSlot(onTapE:(){setState(() {playSlot(3,2);});},id: playerSlot[2][1]),
+                          GameSlot(onTapE:(){setState(() {playSlot(3,3);});},id: playerSlot[2][2]),
                         ],
                       ),
                     ),
@@ -113,7 +113,7 @@ class GamePageState extends State<GamePage>{
                       child: Padding(
                         padding: EdgeInsets.all(w/40),
                         child: gameButton(session: (){setState(() {
-                          gameRoute(context,1);
+                          gameRoute(context,1,score1: mainGame.getSide1Win(),score2: mainGame.getSide2Win());
                         });},high: h/8,wide: w/2,myText: "End",)
                       ),
                     ),
@@ -122,6 +122,7 @@ class GamePageState extends State<GamePage>{
                           padding: EdgeInsets.all(w/40),
                           child: gameButton(session: (){setState(() {
                             gameRoute(context,2);
+                            mainGame.resetSession();
                           });},high: h/8,wide: w/2,myText: "Reset",)
                       ),
                     ),
