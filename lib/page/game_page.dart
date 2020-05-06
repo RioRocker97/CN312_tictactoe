@@ -1,8 +1,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:tictactoe/components/myButton.dart';
 import 'package:tictactoe/logic/routing.dart';
+import 'package:tictactoe/logic/game_logic.dart';
 import 'package:tictactoe/components/game_structure.dart';
 class GamePage extends StatefulWidget{
   @override
@@ -11,44 +13,26 @@ class GamePage extends StatefulWidget{
     return GamePageState();
   }
 }
-
 class GamePageState extends State<GamePage>{
+  TicTacToe mainGame = new TicTacToe();
+  bool mycolor = true;
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-    double pixel = MediaQuery.of(context).devicePixelRatio;
-    double realw = w*pixel;
-    double realh = h*pixel;
+    //debugPaintSizeEnabled = true;
+    void changeColor(){
+      mycolor = mycolor ? false : true;
+    }
     // TODO: implement build
     return Scaffold(
       body: Center(
         child: Column(
           children: <Widget>[
-            Container(
-              height: h/4,
-              child: Center(
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.all(w/10),
-                        child: Text("Blue",style: TextStyle(fontFamily: 'baloo',fontSize: 60.0,color: Colors.blue),),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.all(w/10),
-                        child: Text("Red",style: TextStyle(fontFamily: 'baloo',fontSize: 60.0,color: Colors.red),),
-                      ),
-                    )
-                  ],
-                ),
-              )
-            ),
+            GameScore(side1Score: mainGame.getSide1Win(),side2Score: mainGame.getSide2Win(),),
             Container(
               height: h/2,
-              child: GameStructure(),
+              child: GameStructure(onTapEvent: (){setState(() {changeColor();});},change: mycolor,),
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("public/pic/testBG1.jpg"),
@@ -87,3 +71,4 @@ class GamePageState extends State<GamePage>{
     );
   }
 }
+

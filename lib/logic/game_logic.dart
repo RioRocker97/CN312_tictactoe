@@ -1,22 +1,31 @@
 import 'dart:io';
 
 class TicTacToe {
-  var game = [
-    [0,0,0],
-    [0,0,0],
-    [0,0,0],
-  ];
-  var slot = [
-    [0,0,0],
-    [0,0,0],
-    [0,0,0],
-  ];
-  int side1Win =0;
-  int side2Win =0;
-  var x_possible=[0,0,0];
-  var y_possible=[0,0,0];
-  var cross_possible=[0,0];
+  var game ;
+  var slot ;
+  int side1Win ;
+  int side2Win ;
+  var x_possible ;
+  var y_possible ;
+  var cross_possible ;
 
+  TicTacToe(){
+    this.game = [
+      [0,0,0],
+      [0,0,0],
+      [0,0,0],
+    ];
+    this.slot = [
+      [0,0,0],
+      [0,0,0],
+      [0,0,0],
+    ];
+    this.side1Win =0;
+    this.side2Win =0;
+    this.x_possible=[0,0,0];
+    this.y_possible=[0,0,0];
+    this.cross_possible=[0,0];
+  }
   void calculatePoint(int x,int y, int id){
     var posx = x-1;
     var posy = y-1;
@@ -184,9 +193,9 @@ class TicTacToe {
     print("----------------------");
   }
   int getSide1Win(){
-    return side1Win;
+    return this.side1Win;
   }
   int getSide2Win(){
-    return side2Win;
+    return this.side2Win;
   }
 }
