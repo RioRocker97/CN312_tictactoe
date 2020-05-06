@@ -23,7 +23,7 @@ class WelcomePageState extends State<WelcomePage>{
           height: h,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image:  AssetImage("public/pic/testBG1.jpg"),
+              image:  AssetImage("public/pic/TicTacToeBG.jpg"),
               fit: BoxFit.cover
             )
           ),

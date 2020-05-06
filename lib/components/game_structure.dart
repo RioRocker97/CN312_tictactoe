@@ -1,11 +1,13 @@
 
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:tictactoe/logic/game_logic.dart';
 
 //////////// Main Game Components ///////////////////////
-class GameStructure extends StatelessWidget {
+/*class GameStructure extends StatelessWidget {
   GameStructure({this.change,this.onTapEvent, this.game,});
   bool change;
   Function onTapEvent;
@@ -46,6 +48,7 @@ class GameStructure extends StatelessWidget {
     );
   }
 }
+*/
 
 class GameSlot extends StatelessWidget{
   GameSlot({this.onTapE,this.c,this.id});
@@ -56,19 +59,21 @@ class GameSlot extends StatelessWidget{
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
+    //debugPaintSizeEnabled = true;
     // TODO: implement build
-    return Expanded(
+    return new Expanded(
       child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: onTapE,
         child: Padding(
           padding: EdgeInsets.all(w/40),
           child: Container(
             width: 100.0,
             height: 100.0,
-            color: c ? Colors.green : Colors.redAccent,
+            //color: c ? Colors.blue : Colors.red,
             child: Center(
-              child: Text(id.toString(),style: TextStyle(fontSize: 20.0,fontFamily: 'baloo'),),
-            ),
+              child: c ? null : (id==1 ? Image(image: AssetImage('public/pic/X_blue.png')) : Image(image: AssetImage('public/pic/O_red.png'))) ,
+            )
           ),
         ),
       ),
@@ -78,7 +83,8 @@ class GameSlot extends StatelessWidget{
 
 ///////// Main Game Score Board /////////////////
 class GameScore extends StatelessWidget{
-  GameScore({this.side1Score,this.side2Score});
+  GameScore({this.side1Score,this.side2Score,this.turn});
+  bool turn;
 
   int side1Score ;
   int side2Score ;
@@ -86,8 +92,10 @@ class GameScore extends StatelessWidget{
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
+
     return Container(
         height: h/4,
+        color: Colors.blueGrey,
         child: Center(
           child: Column(
             children: <Widget>[
@@ -96,17 +104,23 @@ class GameScore extends StatelessWidget{
                   Expanded(
                       child: Padding(
                         padding: EdgeInsets.only(top: h/20),
-                        child: Center(
-                            child: Text("Blue",style: TextStyle(fontFamily: 'baloo',fontSize: 60.0,color: Colors.blue))
-                        ),
+                        child: Container(
+                          child: Center(
+                              child: Text("Blue",style: TextStyle(fontFamily: 'baloo',fontSize: 60.0,color: Colors.blue))
+                          ),
+                          color: turn ? Colors.amberAccent : null,
+                        )
                       ),
                   ),
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.only(top: h/20),
-                      child: Center(
-                          child: Text("Red",style: TextStyle(fontFamily: 'baloo',fontSize: 60.0,color: Colors.red))
-                      ),
+                        child: Container(
+                          child: Center(
+                              child: Text("Red",style: TextStyle(fontFamily: 'baloo',fontSize: 60.0,color: Colors.red))
+                          ),
+                          color: turn ? null : Colors.amberAccent,
+                        )
                     ),
                   ),
                 ],
