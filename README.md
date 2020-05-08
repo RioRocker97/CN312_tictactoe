@@ -1,10 +1,10 @@
 # Tic Tac Toe
     My Tic Tac Toe game
-![front page](https://github.com/cn312/tic-tac-toe-6010613518/blob/new_master/public/pic/demo1.PNG)
-![select page](https://github.com/cn312/tic-tac-toe-6010613518/blob/new_master/public/pic/demo2.png)
+![front page](https://github.com/RioRocker97/CN312_tictactoe/blob/new_master/public/pic/demo1.PNG)
+![select page](https://github.com/RioRocker97/CN312_tictactoe/blob/new_master/public/pic/demo2.png)
 
-![game page](https://github.com/cn312/tic-tac-toe-6010613518/blob/new_master/public/pic/demo3.PNG)
-![end page](https://github.com/cn312/tic-tac-toe-6010613518/blob/new_master/public/pic/demo2.png)
+![game page](https://github.com/RioRocker97/CN312_tictactoe/blob/new_master/public/pic/demo3.PNG)
+![end page](https://github.com/RioRocker97/CN312_tictactoe/blob/new_master/public/pic/demo2.png)
 # Progression
 Initialize first page, simple routing :heavy_check_mark:
 
